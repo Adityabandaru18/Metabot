@@ -1,13 +1,33 @@
 import './App.css'
-
+// import Header from './components/Home/Header.jsx';
+// import Body from './components/Home/Body.jsx';
+// import Footer from './components/Home/Footer.jsx';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from './components/Userlogin/Login.jsx';
+import Signup from './components/Userlogin/Signup.jsx';
+import HomeMain from './components/Home/HomeMain.jsx';
 function App() {
 
 
   return (
     <>
-        <h1 className="text-1xl font-bold underline">
-      Hello world!
-    </h1>
+        <div className="bg-gradient-to-br from-gray-900 via-black to-gray-800">
+        
+{/* 
+   <Header />
+   <Body />
+   <Footer /> */}
+   <Router>
+          <Routes>
+            <Route path="/" element={<HomeMain />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+         
+          </Routes>
+        </Router>
+         
+   </div>
+   
     </>
   )
 }

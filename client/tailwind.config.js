@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        'gradient-animation': 'gradient-animation 15s ease infinite',
+      },
+   
+    },
   },
   plugins: [],
 }
