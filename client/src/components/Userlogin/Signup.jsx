@@ -7,12 +7,11 @@ import {
   } from "react-social-login-buttons";
   
 function Login() {
-  // Refs
+
   const nameRef = useRef("");
   const mailRef = useRef("");
   const passwordRef = useRef("");
 
-  // States
   const [setName, setNameHandler] = useState("");
   const [setmail, setmailHandler] = useState("");
   const [setPassword, setPasswordHandler] = useState("");
@@ -35,7 +34,6 @@ function Login() {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    // Handle form submission logic
   };
 
   const list = {
@@ -175,12 +173,6 @@ function Login() {
             )}
           </motion.div>
 
-          {/* <NavLink to="/login">
-            <p className="m-auto mb-5 ml-36 text-sm">
-              Already have an account?{" "}
-              <p className="text-blue-600 inline-block">LogIn</p>
-            </p>
-          </NavLink> */}
           <Atropos
             className="my-atropos"
             activeOffset={40}
