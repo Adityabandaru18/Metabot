@@ -174,7 +174,7 @@ function Login() {
               whileTap={{ scale: 0.95 }}
               type="submit"
             >
-              Submit
+              <NavLink to="/main">Submit</NavLink>
             </motion.button>
           </Atropos>
         </motion.div>

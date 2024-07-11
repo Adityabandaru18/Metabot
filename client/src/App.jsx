@@ -5,8 +5,9 @@ import './App.css'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from './components/Userlogin/Login.jsx';
 import Signup from './components/Userlogin/Signup.jsx';
-// import HomeMain from './components/Home/HomeMain.jsx';
+import HomeMain from './components/Home/HomeMain.jsx';
 import MainHome from './components/Main/MainHome.jsx';
+import Account from './components/Main/Account.jsx';
 function App() {
 
 
@@ -20,8 +21,9 @@ function App() {
    <Footer /> */}
    <Router>
           <Routes>
-            {/* <Route path="/" element={<HomeMain />} /> */}
-            <Route path="/" element={<MainHome />} />
+            <Route path="/" element={<HomeMain />} />
+            <Route path="/main" element={<MainHome />} />
+            <Route path="/account" element={<Account />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
          
