@@ -12,6 +12,7 @@
   "dependencies": {
     "atropos": "^2.0.2",
     "classnames": "^2.5.1",
+    "firebase": "^10.12.3",
     "framer-motion": "^11.2.13",
     "ityped": "^1.0.3",
     "prop-types": "^15.8.1",

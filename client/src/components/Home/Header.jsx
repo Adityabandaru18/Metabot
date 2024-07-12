@@ -15,9 +15,9 @@ function Header() {
           ME<img src={Metabot} className="max-w-7 inline-block mb-2" alt="Metabot Logo" />ABOT
         </h1>
       </div>
-      <div className="flex items-center justify-center min-h-screen relative ml-20 sm:m-auto">
+      <div className="flex items-center justify-center flex-col sm:flex-row min-h-screen relative ml-20 sm:m-auto">
         <div className="text-center text-white mr-20">
-          <h2 className="text-xl md:text-3xl lg:text-5xl font-bold">
+          <h2 className="text-xl md:text-xl lg:text-4xl font-archivo-black">
             INTELLIGENT <p className="text-[#48c6ef] inline-block shadow-sm">CHATBOT</p> DEVELOPMENT
           </h2>
           <p className="text-m md:text-xl lg:text-1xl mt-4">
@@ -27,7 +27,7 @@ function Header() {
         </div>
  
         <div>
-          <img src={robo} alt='robo1' className='max-w-80 hidden sm:block animate-bounce'/>
+          <img src={robo} alt='robo1' className='sm:max-w-80 max-w-52 relative top-20 sm:top-0 mr-20 sm:mr-0 sm:block animate-bounce '/>
         </div>
       </div>
    

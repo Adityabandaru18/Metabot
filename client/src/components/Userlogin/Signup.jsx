@@ -1,39 +1,49 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import Atropos from "atropos/react";
 import { NavLink } from "react-router-dom";
+import { GoogleLoginButton } from "react-social-login-buttons";
+import { app } from "../Firebase/Firebase.jsx";
 import {
-    GoogleLoginButton,
-  } from "react-social-login-buttons";
-  
-function Login() {
+  getAuth,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
+function Login() {
   const nameRef = useRef("");
   const mailRef = useRef("");
   const passwordRef = useRef("");
+  const navigate = useNavigate();
 
-  const [setName, setNameHandler] = useState("");
-  const [setmail, setmailHandler] = useState("");
-  const [setPassword, setPasswordHandler] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [isName, setIsName] = useState(false);
-  const [ismail, setIsmail] = useState(false);
-  const [isPassword, setIsPassword] = useState(false);
 
-  useEffect(() => {
-    setIsName(!setName.match("^[a-zA-Z_ .]*$"));
-  }, [setName]);
+  const auth = getAuth(app);
 
-  useEffect(() => {
-    setIsmail(!setmail.match("^[a-zA-Z_ .]*$"));
-  }, [setmail]);
 
-  useEffect(() => {
-    setIsPassword(passwordRef.current.value.length < 0);
-  }, [setPassword]);
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      navigate("/main");
+      console.log(userCredential);
+      // Handle successful login here
+    } catch (error) {
+      console.error(error);
+      // Handle login error here
+    }
+
+    mailRef.current.value = "";
+    passwordRef.current.value = "";
+    nameRef.current.value = "";
   };
 
   const list = {
@@ -65,7 +75,7 @@ function Login() {
 
   return (
     <motion.div
-      className="font-Mono bg-grad w-full  flex justify-center items-center py-20 px-5"
+      className="font-Mono bg-grad w-full flex justify-center items-center py-20 px-5"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
@@ -75,7 +85,7 @@ function Login() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1 }}
         onSubmit={submitHandler}
-        className="bg-white shadow-2xl  w-full rounded-xl text-black max-w-xl relative border-none"
+        className="bg-white shadow-2xl w-full rounded-xl text-black max-w-xl relative border-none"
       >
         <motion.div
           className="px-6 pt-4 z-100 sixTen:pt-4 sixTen:px-16"
@@ -119,58 +129,37 @@ function Login() {
             <input
               autoFocus
               ref={nameRef}
-              value={setName}
+              value={name}
               type="text"
-              onChange={() => setNameHandler(nameRef.current.value)}
+              onChange={() => setName(nameRef.current.value)}
               placeholder="Username"
               required
-              className={`bg-transparent relative font-medium outline-none focus:outline-none w-full mb-6 rounded-2xl bg-gray-50 p-3 ring-2 ${
-                isName ? "ring-red-500" : "ring-gray-200"
-              } border-2 border-transparent`}
+              className={`bg-transparent relative font-medium outline-none focus:outline-none w-full mb-6 rounded-2xl bg-gray-50 p-3 ring-2` }
             />
-            {isName && (
-              <span className="text-red-500 font-medium absolute right-2 top-[3.8rem] ">
-                Invalid Name
-              </span>
-            )}
           </motion.div>
 
           <motion.div className="relative mb-4" variants={item}>
             <input
               ref={mailRef}
-              value={setmail}
+              value={email}
               type="text"
-              onChange={() => setmailHandler(mailRef.current.value)}
+              onChange={() => setEmail(mailRef.current.value)}
               placeholder="Email"
               required
-              className={`bg-transparent relative font-medium outline-none focus:outline-none w-full mb-6 rounded-2xl bg-gray-50 p-3 ring-2 ${
-                ismail ? "ring-red-500" : "ring-gray-200"
-              } border-2 border-transparent`}
+              className={`bg-transparent relative font-medium outline-none focus:outline-none w-full mb-6 rounded-2xl bg-gray-50 p-3 ring-2 `}
             />
-            {ismail && (
-              <span className="text-red-500 font-medium absolute right-2 top-[3.8rem] ">
-                Invalid Mail
-              </span>
-            )}
           </motion.div>
 
           <motion.div className="relative mb-4" variants={item}>
             <input
               ref={passwordRef}
-              value={setPassword}
+              value={password}
               type="password"
-              onChange={() => setPasswordHandler(passwordRef.current.value)}
+              onChange={() => setPassword(passwordRef.current.value)}
               placeholder="Password"
               required
-              className={`bg-transparent relative font-medium outline-none focus:outline-none w-full mb-6 rounded-2xl bg-gray-50 p-3 ring-2 ${
-                isPassword ? "ring-red-500" : "ring-gray-200"
-              } border-2 border-transparent`}
+              className={`bg-transparent relative font-medium outline-none focus:outline-none w-full mb-6 rounded-2xl bg-gray-50 p-3 ring-2 `}
             />
-            {isPassword && (
-              <span className="text-red-500 font-medium absolute right-2 top-[3.8rem] ">
-                Password must be at least 6 characters
-              </span>
-            )}
           </motion.div>
 
           <Atropos
@@ -180,7 +169,6 @@ function Login() {
             rotateTouch={true}
           >
             <motion.button
-              disabled={isName || ismail || isPassword}
               className="w-full border-transparent rounded-2xl bg-[#176698] py-3 font-bold text-white hover:border-[#176698] border-2 hover:bg-white hover:text-[#176698] transition-colors"
               whileTap={{ scale: 0.95 }}
               type="submit"
@@ -190,13 +178,13 @@ function Login() {
           </Atropos>
         </motion.div>
         <NavLink to="/login">
-            <p className="m-auto mt-8 mb-5 ml-40 text-sm hidden sm:block">
+          <p className="m-auto mt-8 mb-5 ml-40 text-sm hidden sm:block">
             Already have an account?{" "}
-              <p className="text-blue-600 inline-block">LogIn</p>
-            </p>
-          </NavLink>
+            <p className="text-blue-600 inline-block">LogIn</p>
+          </p>
+        </NavLink>
 
-          <GoogleLoginButton className="max-w-64 relative left-32 hidden lg:block"/>
+        <GoogleLoginButton className="max-w-64 relative left-32 hidden lg:block" />
 
         <div className="w-full z-10 text-sm -mt-5 relative -bottom-1 rounded-md">
           <svg

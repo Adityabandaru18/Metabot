@@ -10,7 +10,7 @@ const Account = () => {
       <motion.div
         initial={{ opacity: 0, x: -100 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ type: "spring", stiffness: 50 }}
+        transition={{ type: "spring", stiffness: 30 }}
         className="sm:ml-64 pt-20 px-4 sm:px-6 lg:px-8 bg-gray-900 border-b border-gray-700 h-screen"
       >
         <motion.div
@@ -19,7 +19,7 @@ const Account = () => {
           transition={{ type: "spring", stiffness: 50, delay: 0.2 }}
           className="max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-md p-6 sm:mt-32"
         >
-          <h1 className="text-3xl font-bold text-white mb-8">Account Settings</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-8">Account Settings</h1>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -29,11 +29,11 @@ const Account = () => {
           >
             {/* Update Profile Section */}
             <div className="flex flex-col items-center space-y-4">
-              <div className="text-xl text-white">Update Profile</div>
+              <div className="text-xl text-white font-outfit">Update Profile</div>
               <motion.img
                 src={ProfileAI}
                 alt="Profile"
-                className="w-32 h-32 rounded-full"
+                className="w-24 h-24 sm:w-32 sm:h-32 rounded-full"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
               />
@@ -48,7 +48,7 @@ const Account = () => {
             {/* Contact Information Section */}
             <div className="flex flex-col space-y-6">
               <div>
-                <label className="block text-xl text-white mb-2">
+                <label className="block text-xl text-white mb-2 font-outfit">
                   Change Username:
                 </label>
                 <motion.input
@@ -59,7 +59,7 @@ const Account = () => {
               </div>
 
               <div>
-                <label className="block text-xl text-white mb-2">Change Email:</label>
+                <label className="block text-xl text-white mb-2 font-outfit">Change Email:</label>
                 <motion.input
                   whileFocus={{ scale: 1.05 }}
                   placeholder="Metabot@gmail.com"
@@ -72,18 +72,18 @@ const Account = () => {
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ type: "spring", stiffness: 50, delay: 0.6 }}
+            transition={{ stiffness: 50, delay: 0.6 }}
             className="flex justify-center mt-8 space-x-4"
           >
             <motion.button
               whileHover={{ scale: 1.1 }}
-              className="rounded-full bg-white text-black px-6 py-2 w-36"
+              className="rounded-full bg-white text-black w-36"
             >
               Discard
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.1 }}
-              className="rounded-full bg-pink-700 text-white px-6 py-2"
+              className="rounded-full bg-pink-700 text-white px-3 py-2 sm:px-6 sm:py-2"
             >
               Apply Changes
             </motion.button>

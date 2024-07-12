@@ -9,6 +9,12 @@ export default {
       animation: {
         'gradient-animation': 'gradient-animation 15s ease infinite',
       },
+      fontFamily: {
+        'outfit': ['Outfit', 'sans-serif'],
+        'archivo-black': ['Archivo Black', 'sans-serif'],
+        'bebas' : ['Bebas Neue', 'sans-serif']
+
+            },
    
     },
   },

@@ -10,7 +10,7 @@ const Navigation = () => {
 
     return (
         <>
-            <div className="bg-gradient-to-brborder-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <div className="bg-gradient-to-brborder-gray-200 dark:bg-gray-800 dark:border-gray-700 cursor-pointer">
 
                 <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                     <div className="px-3 py-3 lg:px-5 lg:pl-3">
@@ -55,7 +55,7 @@ const Navigation = () => {
                         <ul className="space-y-2 font-medium flex flex-col h-full">
                             <li></li>
                             <li></li>
-                            <li>
+                            <NavLink to="/main"><li>
                                 <p
                                     className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                                 >
@@ -73,19 +73,19 @@ const Navigation = () => {
                                             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                                         />
                                     </svg>
-                                    <span className="ms-3"><NavLink to="/main">Home</NavLink></span>
+                                    <span className="ms-3">Home</span>
                                 </p>
-                            </li>
-                            <li>
+                            </li></NavLink>
+                            <NavLink to="/create"> <li>
                                 <p
                                     className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                                 >
                                     <svg className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                                         <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286C10 17.169 10.831 18 11.857 18h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
                                     </svg>
-                                    <span className="ms-3">Create new</span>
+                                    <span className="ms-3"><NavLink to="/create">Create new</NavLink></span>
                                 </p>
-                            </li>
+                            </li></NavLink>
                             <li>
                                 <p
                                     className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
@@ -130,55 +130,47 @@ const Navigation = () => {
                             </li>
                             <li className="flex-grow" />
                             {/* Account */}
-                            <li>
-                                <p
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                                >
-                                    <svg
-                                        className="w-6 h-6 stroke-current"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                                        />
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M16 12a4 4 0 01-8 0 4 4 0 018 0z"
-                                        />
-                                    </svg>
-                                    <NavLink to="/account" > <span className="ms-3">Account</span></NavLink>
-                                </p>
-                            </li>
-                            {/* Sign Out */}
-                            <li>
-                                <p
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                                >
-                                    <svg
-                                        className="w-6 h-6 stroke-current"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M19 12H6m8-7l5 5-5 5"
-                                        />
-                                    </svg>
-                                    <span className="ms-3">Sign Out</span>
-                                </p>
-                            </li>
+                            <NavLink to="/account">
+        <li>
+          <p className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <svg
+              className="w-6 h-6 stroke-current"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"
+              />
+            </svg>
+            <span className="ms-3">Account</span>
+          </p>
+        </li>
+      </NavLink>
+      {/* Sign Out */}
+      <li>
+        <p className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+          <svg
+            className="w-6 h-6 stroke-current"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M10 19v-2a1 1 0 00-1-1H5V8h4a1 1 0 001-1V5M17 16l4-4m0 0l-4-4m4 4H7"
+            />
+          </svg>
+          <span className="ms-3">Sign Out</span>
+        </p>
+      </li>
                         </ul>
                     </div>
                 </aside>

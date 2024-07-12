@@ -8,6 +8,7 @@ import Signup from './components/Userlogin/Signup.jsx';
 import HomeMain from './components/Home/HomeMain.jsx';
 import MainHome from './components/Main/MainHome.jsx';
 import Account from './components/Main/Account.jsx';
+import Createnew from './components/Main/Createnew.jsx';
 function App() {
 
 
@@ -23,6 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeMain />} />
             <Route path="/main" element={<MainHome />} />
+            <Route path="/create" element={<Createnew />} />
             <Route path="/account" element={<Account />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
