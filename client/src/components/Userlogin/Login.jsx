@@ -5,9 +5,12 @@ import Atropos from "atropos/react";
 import { NavLink } from "react-router-dom";
 import robologin from "../assets/Metabot.png";
 import { GoogleLoginButton } from "react-social-login-buttons";
+
 import { app } from "../Firebase/Firebase";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword,  signInWithPopup,  GoogleAuthProvider,
+} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+
 function Login() {
   const mailRef = useRef("");
   const passwordRef = useRef("");
@@ -16,8 +19,9 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const auth = getAuth(app);
-  // Submit handler
-    const submitHandler = async (event) => {
+  const provider1 = new GoogleAuthProvider();
+
+  const submitHandler = async (event) => {
     event.preventDefault();
 
 
@@ -28,8 +32,7 @@ function Login() {
       console.log(userCredential);
     } catch (error) {
       console.error(error);
-
-    }
+   }
 
     mailRef.current.value = "";
     passwordRef.current.value = "";
@@ -39,7 +42,24 @@ function Login() {
     visible: { opacity: 1, transition: { staggerChildren: 0.3 } },
     hidden: { opacity: 0 },
   };
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, provider1)
+      .then((userC) => {
+        // dispatch(ChangeLogin("Log out"));
+        // dispatch(AddToken(userC.user.uid));
+        // settoken(userC.user.uid);
+        // Check_token(userC.user.uid);
+      console.log(userC);
+      navigate("/main");
 
+
+      })
+      .catch((error) => {
+        // setShowError(error || "");
+        console.log("Hello Aditya");
+        console.log(error);
+      });
+  };
   const item = {
     visible: {
       opacity: 1,
@@ -173,7 +193,7 @@ function Login() {
           </p>
         </NavLink>
 
-        <GoogleLoginButton className="max-w-64 relative left-32 hidden sm:block" />
+        <GoogleLoginButton className="max-w-64 relative left-32 hidden sm:block" onClick={handleGoogleLogin}/>
 
         <div className="w-full z-10 text-sm -mt-5 relative -bottom-1 rounded-md">
           <svg

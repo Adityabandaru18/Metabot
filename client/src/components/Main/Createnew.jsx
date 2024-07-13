@@ -5,8 +5,10 @@ import ProfileAI from "../assets/creatnew.webp";
 import Demo from "../assets/Demo.png";
 
 const Createnew = () => {
-
   const [showModal, setShowModal] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const [fileConfirmed, setFileConfirmed] = useState(false);
+  const [profileImage, setProfileImage] = useState(ProfileAI);
 
   const openModal = () => {
     setShowModal(true);
@@ -15,6 +17,30 @@ const Createnew = () => {
   const closeModal = () => {
     setShowModal(false);
   };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setUploadedFile(file);
+      setFileConfirmed(false);
+    }
+  };
+
+  const handleRadioChange = () => {
+    setFileConfirmed(!fileConfirmed);
+  };
+
+  const handleProfileImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setProfileImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <>
       {!showModal && <Navigation />}
@@ -78,24 +104,37 @@ const Createnew = () => {
               </label>
               <label className="inline-block bg-pink-700 text-white px-4 py-2 cursor-pointer sm:ml-16 relative sm:bottom-10 ml-12 mt-3">
                 Upload File
-                <input type="file" className="hidden" />
+                <input type="file" className="hidden" accept=".csv, .xlsx, .xls" onChange={handleFileChange} />
               </label>
+              {uploadedFile && (
+                <div className="mt-3">
+                  <p className="text-white">Uploaded file: {uploadedFile.name}</p>
+                  <div className="flex items-center mt-2">
+                    <input 
+                      type="radio" 
+                      id="confirmFile" 
+                      name="confirmFile" 
+                      checked={fileConfirmed} 
+                      onChange={handleRadioChange} 
+                    />
+                    <label htmlFor="confirmFile" className="text-white ml-2">Confirm file: </label>
+                  </div>
+                </div>
+              )}
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <div className="text-xl text-white font-outfit">Bot Profile:</div>
               <div>
                 <img
-                  src={ProfileAI}
+                  src={profileImage}
                   alt="Profile"
                   className="w-24 h-24 rounded-full"
                 />
               </div>
-              <button className="rounded-full bg-white text-black px-4 py-2 w-40 h-10 font-outfit">
+              <label className="rounded-full bg-white text-black px-4 py-2 w-40 h-10 font-outfit cursor-pointer flex justify-center items-center">
                 Upload profile
-              </button>
-              <div></div>
-              <div></div>
-              <div></div>
+                <input type="file" className="hidden" accept="image/*" onChange={handleProfileImageChange} />
+              </label>
               <div></div>
               <div></div>
               <div></div>

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Metabot from "../assets/Metabot.png";
 import { NavLink } from 'react-router-dom';
+import robo from "../assets/robologin.png"
+
 const Navigation = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -12,7 +14,7 @@ const Navigation = () => {
         <>
             <div className="bg-gradient-to-brborder-gray-200 dark:bg-gray-800 dark:border-gray-700 cursor-pointer">
 
-                <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 flex flex-row justify-between">
                     <div className="px-3 py-3 lg:px-5 lg:pl-3">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center justify-start rtl:justify-end">
@@ -41,6 +43,9 @@ const Navigation = () => {
                                 </h1>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <img src={robo} className='w-24 h-16 sm:h-16 mt-2' />
                     </div>
                 </nav>
 
@@ -125,7 +130,7 @@ const Navigation = () => {
                                             d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                                         />
                                     </svg>
-                                    <span className="ms-3">Dashboard</span>
+                                    <span className="ms-3">Orders</span>
                                 </p>
                             </li>
                             <li className="flex-grow" />

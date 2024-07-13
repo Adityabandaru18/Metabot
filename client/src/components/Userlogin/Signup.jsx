@@ -7,6 +7,8 @@ import { app } from "../Firebase/Firebase.jsx";
 import {
   getAuth,
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -22,6 +24,7 @@ function Login() {
 
 
   const auth = getAuth(app);
+  const provider1 = new GoogleAuthProvider();
 
 
 
@@ -33,12 +36,11 @@ function Login() {
         email,
         password
       );
+      userCredential.user.displayName = name;
       navigate("/main");
       console.log(userCredential);
-      // Handle successful login here
     } catch (error) {
       console.error(error);
-      // Handle login error here
     }
 
     mailRef.current.value = "";
@@ -46,6 +48,24 @@ function Login() {
     nameRef.current.value = "";
   };
 
+
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, provider1)
+      .then((userC) => {
+        // dispatch(ChangeLogin("Log out"));
+        // dispatch(AddToken(userC.user.uid));
+        // settoken(userC.user.uid);
+        // Check_token(userC.user.uid);
+      console.log(userC);
+      navigate("/main");
+
+
+      })
+      .catch((error) => {
+        // setShowError(error || "");
+        console.log(error);
+      });
+  };
   const list = {
     visible: { opacity: 1, transition: { staggerChildren: 0.3 } },
     hidden: { opacity: 0 },
@@ -184,7 +204,7 @@ function Login() {
           </p>
         </NavLink>
 
-        <GoogleLoginButton className="max-w-64 relative left-32 hidden lg:block" />
+        <GoogleLoginButton className="max-w-64 relative left-32 hidden lg:block" onClick={handleGoogleLogin}/>
 
         <div className="w-full z-10 text-sm -mt-5 relative -bottom-1 rounded-md">
           <svg
