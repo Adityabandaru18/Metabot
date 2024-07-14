@@ -162,8 +162,6 @@ const Navigation = () => {
                                 </svg>
                                 <span className="ms-3">Sign Out</span>
                             </NavLink>
-
-                            helloo
                         </ul>
                     </div>
                 </aside>
