@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'base',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -48,8 +49,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # adjust based on your frontend URL
+    "http://127.0.0.1:3000",
+    # Add more origins as needed for development and production
+]
 ROOT_URLCONF = 'chatbot_api.urls'
 
 TEMPLATES = [
