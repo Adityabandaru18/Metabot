@@ -9,8 +9,10 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  updateProfile
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
   const nameRef = useRef("");
@@ -21,10 +23,28 @@ function Login() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [uuid, setuid] = useState("");
+  const [error, setError] = useState(null); 
 
   const auth = getAuth(app);
   const provider1 = new GoogleAuthProvider();
+
+  //Sending the User's UID to the backend to through axios
+
+  const sendRequest = async () => {
+    try {
+      const resp = await axios.post("http://127.0.0.1:8000/api/createuser/", {uuid});
+      console.log("User created successfully");
+      console.log(resp);
+    } catch (error) {
+      console.error('Error while sending request:', error);
+    }
+  };
+
+
+
+
+
 
 
 
@@ -36,10 +56,15 @@ function Login() {
         email,
         password
       );
-      userCredential.user.displayName = name;
+      await updateProfile(auth.currentUser, { displayName: name });
       navigate("/main");
       console.log(userCredential);
     } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        setError("Email already in use. Please use a different email.");
+      } else {
+        setError(error.message); 
+      }
       console.error(error);
     }
 
@@ -48,24 +73,18 @@ function Login() {
     nameRef.current.value = "";
   };
 
-
   const handleGoogleLogin = () => {
     signInWithPopup(auth, provider1)
       .then((userC) => {
-        // dispatch(ChangeLogin("Log out"));
-        // dispatch(AddToken(userC.user.uid));
-        // settoken(userC.user.uid);
-        // Check_token(userC.user.uid);
-      console.log(userC);
-      navigate("/main");
-
-
+        setuid(userC.user.uid);
+        sendRequest();
+        navigate("/main");
       })
       .catch((error) => {
-        // setShowError(error || "");
-        console.log(error);
+        console.error(error);
       });
   };
+
   const list = {
     visible: { opacity: 1, transition: { staggerChildren: 0.3 } },
     hidden: { opacity: 0 },
@@ -124,7 +143,7 @@ function Login() {
               height="80"
               viewBox="0 0 120 80"
               fill="none"
-              xmlns="https://m.media-amazon.com/images/I/61m0SZMyRzL.jpg"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M29.3881 33.1579L99.9995 0L41.4437 39.4736L75.8883 59.9999L99.9995 0L0 18.9473L29.3881 33.1579Z"
@@ -145,6 +164,8 @@ function Login() {
             <span className="smooth">Create your free account!</span>
           </div>
 
+          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+
           <motion.div className="relative mb-4" variants={item}>
             <input
               autoFocus
@@ -154,7 +175,7 @@ function Login() {
               onChange={() => setName(nameRef.current.value)}
               placeholder="Username"
               required
-              className={`bg-transparent relative font-medium outline-none focus:outline-none w-full mb-6 rounded-2xl bg-gray-50 p-3 ring-2` }
+              className="bg-transparent relative font-medium outline-none focus:outline-none w-full mb-6 rounded-2xl bg-gray-50 p-3 ring-2"
             />
           </motion.div>
 
@@ -166,7 +187,7 @@ function Login() {
               onChange={() => setEmail(mailRef.current.value)}
               placeholder="Email"
               required
-              className={`bg-transparent relative font-medium outline-none focus:outline-none w-full mb-6 rounded-2xl bg-gray-50 p-3 ring-2 `}
+              className="bg-transparent relative font-medium outline-none focus:outline-none w-full mb-6 rounded-2xl bg-gray-50 p-3 ring-2"
             />
           </motion.div>
 
@@ -178,7 +199,7 @@ function Login() {
               onChange={() => setPassword(passwordRef.current.value)}
               placeholder="Password"
               required
-              className={`bg-transparent relative font-medium outline-none focus:outline-none w-full mb-6 rounded-2xl bg-gray-50 p-3 ring-2 `}
+              className="bg-transparent relative font-medium outline-none focus:outline-none w-full mb-6 rounded-2xl bg-gray-50 p-3 ring-2"
             />
           </motion.div>
 
@@ -197,21 +218,25 @@ function Login() {
             </motion.button>
           </Atropos>
         </motion.div>
+
         <NavLink to="/login">
           <p className="m-auto mt-8 mb-5 ml-40 text-sm hidden sm:block">
             Already have an account?{" "}
-            <p className="text-blue-600 inline-block">LogIn</p>
+            <span className="text-blue-600 inline-block">Log In</span>
           </p>
         </NavLink>
 
-        <GoogleLoginButton className="max-w-64 relative left-32 hidden lg:block" onClick={handleGoogleLogin}/>
+        <GoogleLoginButton
+          className="max-w-64 relative left-32 hidden lg:block"
+          onClick={handleGoogleLogin}
+        />
 
         <div className="w-full z-10 text-sm -mt-5 relative -bottom-1 rounded-md">
           <svg
             className="rounded-b-md"
             viewBox="0 0 670 195"
             fill="none"
-            xmlns="https://m.media-amazon.com/images/I/61m0SZMyRzL.jpg"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <motion.path
               d="M676 73.1658C555.600 127 111 200 -1 2V196H676V73.1658Z"
@@ -234,19 +259,7 @@ function Login() {
                 repeat: Infinity,
                 repeatType: "reverse",
                 duration: 20,
-                times: [
-                  0,
-                  0.1,
-                  0.2,
-                  0.3,
-                  0.4,
-                  0.5,
-                  0.6,
-                  0.7,
-                  0.8,
-                  0.9,
-                  1,
-                ],
+                times: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
                 type: "tween",
                 ease: "easeInOut",
               }}

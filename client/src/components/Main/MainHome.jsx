@@ -104,7 +104,7 @@ const MainHome = () => {
       <Navigation />
       <main className="sm:ml-64 pt-20 px-4 sm:px-6 lg:px-8 bg-gray-900 border-b border-gray-700">
         {/* Animated Text */}
-        <img src={rob} className='w-96 h-72 m-auto hidden sm:block' loading="lazy"/>
+        <img src={rob} className='w-96 h-60 m-auto hidden sm:block' loading="lazy"/>
         <AnimatedText text="EXPLORE OUR ENDLESS CUSTOM BOTS HERE :)" />
 
         {/* Card Grid */}

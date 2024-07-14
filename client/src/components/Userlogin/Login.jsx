@@ -1,4 +1,4 @@
-import { useState, useRef} from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import "atropos/css";
 import Atropos from "atropos/react";
@@ -7,7 +7,11 @@ import robologin from "../assets/Metabot.png";
 import { GoogleLoginButton } from "react-social-login-buttons";
 
 import { app } from "../Firebase/Firebase";
-import { getAuth, signInWithEmailAndPassword,  signInWithPopup,  GoogleAuthProvider,
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -17,6 +21,7 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null); // State for error handling
 
   const auth = getAuth(app);
   const provider1 = new GoogleAuthProvider();
@@ -24,15 +29,18 @@ function Login() {
   const submitHandler = async (event) => {
     event.preventDefault();
 
-
-
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       navigate("/main");
       console.log(userCredential);
     } catch (error) {
+      setError(error.message); // Set error message on authentication failure
       console.error(error);
-   }
+    }
 
     mailRef.current.value = "";
     passwordRef.current.value = "";
@@ -45,21 +53,15 @@ function Login() {
   const handleGoogleLogin = () => {
     signInWithPopup(auth, provider1)
       .then((userC) => {
-        // dispatch(ChangeLogin("Log out"));
-        // dispatch(AddToken(userC.user.uid));
-        // settoken(userC.user.uid);
-        // Check_token(userC.user.uid);
-      console.log(userC);
-      navigate("/main");
-
-
+        console.log(userC);
+        navigate("/main");
       })
       .catch((error) => {
-        // setShowError(error || "");
-        console.log("Hello Aditya");
+        setError(error.message); 
         console.log(error);
       });
   };
+
   const item = {
     visible: {
       opacity: 1,
@@ -154,9 +156,9 @@ function Login() {
               required
               className={`bg-transparent relative font-medium outline-none focus:outline-none w-full mb-6 rounded-2xl bg-gray-50 p-3 ring-2 `}
             />
-
           </motion.div>
 
+          {/* Password */}
           <motion.div className="relative mb-4" variants={item}>
             <input
               ref={passwordRef}
@@ -167,9 +169,19 @@ function Login() {
               required
               className={`bg-transparent relative font-medium outline-none focus:outline-none w-full mb-6 rounded-2xl bg-gray-50 p-3 ring-2 `}
             />
-
           </motion.div>
 
+          {/* Error Message */}
+          {error && (
+            <motion.p
+              className="text-red-500 mb-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              {error}
+            </motion.p>
+          )}
 
           <Atropos
             className="my-atropos"
@@ -194,7 +206,10 @@ function Login() {
           </p>
         </NavLink>
 
-        <GoogleLoginButton className="max-w-64 relative left-32 hidden sm:block" onClick={handleGoogleLogin}/>
+        <GoogleLoginButton
+          className="max-w-64 relative left-32 hidden sm:block"
+          onClick={handleGoogleLogin}
+        />
 
         <div className="w-full z-10 text-sm -mt-5 relative -bottom-1 rounded-md">
           <svg
