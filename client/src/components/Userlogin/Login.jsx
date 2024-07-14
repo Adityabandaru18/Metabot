@@ -137,6 +137,7 @@ function Login() {
                 src={robologin}
                 alt="Login"
                 className="max-w-8 inline-block mb-2 ml-2"
+                loading="lazy"
               />
             </span>
           </div>

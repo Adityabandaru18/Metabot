@@ -9,6 +9,7 @@ const Createnew = () => {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [fileConfirmed, setFileConfirmed] = useState(false);
   const [profileImage, setProfileImage] = useState(ProfileAI);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const openModal = () => {
     setShowModal(true);
@@ -16,13 +17,20 @@ const Createnew = () => {
 
   const closeModal = () => {
     setShowModal(false);
+    setErrorMessage('');
   };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
+
     if (file) {
-      setUploadedFile(file);
-      setFileConfirmed(false);
+      if (file.size <= 2 * 1024 * 1024) { // 2MB in bytes
+        setUploadedFile(file);
+        setFileConfirmed(false);
+      } else {
+        setErrorMessage('File size exceeds 2MB. Please upload a smaller file.');
+        openModal();
+      }
     }
   };
 
@@ -49,60 +57,59 @@ const Createnew = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="sm:ml-64 pt-20 px-4 sm:px-6 lg:px-8 text-white bg-gray-900 border-b border-gray-700 h-[150vh]"
+        className="pt-20 px-4 sm:px-6 lg:px-8 text-white bg-gray-900 border-b border-gray-700 min-h-screen sm:ml-20"
       >
         <motion.div 
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="max-w-6xl mx-auto bg-gray-800 rounded-lg shadow-md p-6 sm:mt-3"
+          className="max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-md p-6"
         >
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-8">Create your custom bot</h1>
-          <div className="flex flex-col space-y-6">
-            <div>
-              <label className="inline-block text-xl text-white mb-2 font-outfit">Owner name:</label>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-8 text-center">Create your custom bot</h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="flex flex-col">
+              <label className="text-xl text-white mb-2">Owner name:</label>
               <input
                 placeholder="Enter your username here"
-                className="inline-block w-64 px-4 py-2 text-black rounded-lg sm:ml-48"
+                className="w-full px-4 py-2 text-black rounded-lg"
               />
             </div>
-            <div>
-              <label className="inline-block text-xl text-white mb-2 font-outfit">Company name:</label>
+            <div className="flex flex-col">
+              <label className="text-xl text-white mb-2">Company name:</label>
               <input
                 placeholder="Adidas"
-                className="inline-block w-64 px-4 py-2 text-black rounded-lg sm:ml-[165px]"
+                className="w-full px-4 py-2 text-black rounded-lg"
               />
             </div>
-            <div>
-              <label className="inline-block text-xl text-white mb-2 font-outfit">Bot name:</label>
+            <div className="flex flex-col">
+              <label className="text-xl text-white mb-2">Bot name:</label>
               <input
                 placeholder="Adidas Bot..."
-                className="inline-block w-64 px-4 py-2 text-black rounded-lg sm:ml-[217px]"
+                className="w-full px-4 py-2 text-black rounded-lg"
               />
             </div>
-            <div>
-              <label className="inline-block text-xl text-white mb-2 font-outfit">Contact number:</label>
+            <div className="flex flex-col">
+              <label className="text-xl text-white mb-2">Contact number:</label>
               <input
                 placeholder="Enter your contact number"
-                className="inline-block w-64 px-4 py-2 text-black rounded-lg sm:ml-[157px]"
+                className="w-full px-4 py-2 text-black rounded-lg"
               />
             </div>
-            <div>
-              <label className="inline-block text-xl text-white mb-2 font-outfit">Address:</label>
-              <input
-                placeholder="Enter your contact number"
-                className="inline-block w-64 px-4 py-2 text-black rounded-lg sm:ml-[227px]"
-              />
+            <div className="flex flex-col sm:col-span-2">
+              <label className="text-xl text-white mb-2">Description:</label>
+              <textarea
+                placeholder="Enter the description of your Bot"
+                className="w-full px-4 py-2 text-black rounded-lg"
+              ></textarea>
             </div>
-            <div>
-              <label className="inline-block text-xl text-white mb-2 font-outfit">
-                Excel sheet / Google sheet:
-                <p className="text-sm mt-3 font-normal">
-                  *Remember to add All the details of the<br /> products / services available in the store
-                </p>
-                <button className="rounded-[5px] px-3 py-1 text-sm mt-3 bg-green-700 text-white ml-10 hidden sm:block" onClick={openModal}>See demo</button>
-              </label>
-              <label className="inline-block bg-pink-700 text-white px-4 py-2 cursor-pointer sm:ml-16 relative sm:bottom-10 ml-12 mt-3">
+            <div className="flex flex-col sm:col-span-2">
+              <label className="text-xl text-white mb-2">Excel sheet / Google sheet:</label>
+              <p className="text-sm mt-1 font-normal text-gray-400">
+                *Remember to add all the details of the products / services available in the store<br />
+                *Also note that the size of the file must be under 2MB
+              </p>
+              <button className="rounded-[5px] px-3 py-1 text-sm mt-3 bg-green-700 text-white" onClick={openModal}>See demo</button>
+              <label className="inline-block bg-pink-700 text-white px-4 py-2 cursor-pointer mt-3 text-center">
                 Upload File
                 <input type="file" className="hidden" accept=".csv, .xlsx, .xls" onChange={handleFileChange} />
               </label>
@@ -117,29 +124,25 @@ const Createnew = () => {
                       checked={fileConfirmed} 
                       onChange={handleRadioChange} 
                     />
-                    <label htmlFor="confirmFile" className="text-white ml-2">Confirm file: </label>
+                    <label htmlFor="confirmFile" className="text-white ml-2">Confirm file</label>
                   </div>
                 </div>
               )}
             </div>
-            <div className="flex justify-between items-center">
-              <div className="text-xl text-white font-outfit">Bot Profile:</div>
-              <div>
+            <div className="flex flex-col sm:col-span-2">
+              <label className="text-xl text-white mb-2">Bot Profile:</label>
+              <div className="flex items-center space-x-4">
                 <img
                   src={profileImage}
                   alt="Profile"
                   className="w-24 h-24 rounded-full"
+                  loading="lazy"
                 />
+                <label className="rounded-full bg-white text-black px-4 py-2 font-outfit cursor-pointer">
+                  Upload profile
+                  <input type="file" className="hidden" accept="image/*" onChange={handleProfileImageChange}/>
+                </label>
               </div>
-              <label className="rounded-full bg-white text-black px-4 py-2 w-40 h-10 font-outfit cursor-pointer flex justify-center items-center">
-                Upload profile
-                <input type="file" className="hidden" accept="image/*" onChange={handleProfileImageChange} />
-              </label>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
             </div>
           </div>
           <div className="flex justify-center mt-8 space-x-4">
@@ -153,7 +156,7 @@ const Createnew = () => {
               whileHover={{ scale: 1.1 }}
               className="rounded-full bg-pink-700 text-white px-6 py-2"
             >
-              Save Changes
+              Create bot
             </motion.button>
           </div>
         </motion.div>
@@ -167,14 +170,33 @@ const Createnew = () => {
           className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-99 bg-black"
           onClick={closeModal}
         >
-          <motion.img 
-            initial={{ scale: 0.5 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.3 }}
-            src={Demo}
-            alt="Demo Image"
-            className="max-w-[60%] max-h-[60%] rounded-lg"
-          />
+          {errorMessage ? (
+            <motion.div 
+              initial={{ scale: 0.3 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white rounded-lg p-4 text-black"
+            >
+              <h2 className="text-xl font-bold mb-4">Error</h2>
+              <p>{errorMessage}</p>
+              <button 
+                className="mt-4 px-4 py-2 bg-pink-700 text-white rounded-lg"
+                onClick={closeModal}
+              >
+                Close
+              </button>
+            </motion.div>
+          ) : (
+            <motion.img 
+              initial={{ scale: 0.5 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.3 }}
+              src={Demo}
+              alt="Demo Image"
+              loading="lazy"
+              className="max-w-[60%] max-h-[60%] rounded-lg"
+            />
+          )}
         </motion.div>
       )}
     </>

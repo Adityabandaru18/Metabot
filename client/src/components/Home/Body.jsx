@@ -50,7 +50,7 @@ const Body = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 1.5 }}
         >
-          <img src={robo1} alt='robo1' className='max-w-40 sm:max-w-80 mt-10 sm:mt-0 mr-16 sm:mr-0  sm:block' />
+          <img src={robo1} alt='robo1' className='max-w-40 sm:max-w-80 mt-10 sm:mt-0 mr-16 sm:mr-0  sm:block' loading="lazy"/>
         </motion.div>
       </div>
 
@@ -61,7 +61,7 @@ const Body = () => {
     transition={{ duration: 1, delay: 2.5 }}
     className="order-2 sm:order-1"
   >
-    <img src={customer} alt='robo1' className='max-w-60 sm:max-w-96 mt-10 sm:mt-0 mr-16 sm:mr-0' />
+    <img src={customer} alt='robo1' className='max-w-60 sm:max-w-96 mt-10 sm:mt-0 mr-16 sm:mr-0' loading="lazy"/>
   </motion.div>
 
   <motion.div
@@ -100,7 +100,7 @@ const Body = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 4 }}
         >
-          <img src={costrobo} alt='robo1' className='max-w-60 sm:max-w-80 mt-10 sm:mt-0 mr-16 sm:mr-0  sm:block' />
+          <img src={costrobo} alt='robo1' className='max-w-60 sm:max-w-80 mt-10 sm:mt-0 mr-16 sm:mr-0  sm:block' loading="lazy"/>
         </motion.div>
       </div>
       <Demo />

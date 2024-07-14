@@ -34,6 +34,7 @@ const Account = () => {
                 src={ProfileAI}
                 alt="Profile"
                 className="w-24 h-24 sm:w-32 sm:h-32 rounded-full"
+                loading="lazy"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
               />

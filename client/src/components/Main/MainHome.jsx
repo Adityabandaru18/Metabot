@@ -81,6 +81,7 @@ const Card = () => {
         className="object-cover w-full rounded-t-lg h-48 md:h-full md:w-48 md:rounded-none md:rounded-s-lg"
         src={ProfileAI}
         alt="Profile AI"
+        loading="lazy"
       />
       <div className="flex flex-col justify-between p-4 leading-normal">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -103,7 +104,7 @@ const MainHome = () => {
       <Navigation />
       <main className="sm:ml-64 pt-20 px-4 sm:px-6 lg:px-8 bg-gray-900 border-b border-gray-700">
         {/* Animated Text */}
-        <img src={rob} className='w-96 h-72 m-auto hidden sm:block'/>
+        <img src={rob} className='w-96 h-72 m-auto hidden sm:block' loading="lazy"/>
         <AnimatedText text="EXPLORE OUR ENDLESS CUSTOM BOTS HERE :)" />
 
         {/* Card Grid */}
