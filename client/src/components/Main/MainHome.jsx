@@ -1,10 +1,11 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import Navigation from "./Navigation";
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import ProfileAI from "../assets/profileAI.jpeg";
 import rob from "../assets/15.png";
 import PropTypes from 'prop-types';
+import axios from "axios";
 
 const container = {
   hidden: { opacity: 1 },
@@ -49,19 +50,15 @@ const AnimatedText = (props) => {
 AnimatedText.propTypes = {
   text: PropTypes.string.isRequired,
 };
-const cardVariant = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
-const Card = () => {
+const Card = ({ bot }) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (inView) {
       controls.start("visible");
     }
@@ -72,7 +69,6 @@ const Card = () => {
       ref={ref}
       initial="hidden"
       animate={controls}
-      variants={cardVariant}
       whileHover={{ scale: 1.01 }} // Scale up slightly on hover
       href="#"
       className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row dark:border-gray-800 dark:bg-gray-800"
@@ -85,32 +81,51 @@ const Card = () => {
       />
       <div className="flex flex-col justify-between p-4 leading-normal">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          Bot name:
+          Bot name: {bot.bot_name || 'Unknown'}
         </h5>
         <h4 className="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-          Company name:
+          Company name: {bot.company_name || 'Unknown'}
         </h4>
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          Bot description:
+          Bot description: {bot.desc || 'No description available'}
         </p>
       </div>
     </motion.a>
   );
 };
 
+Card.propTypes = {
+  bot: PropTypes.object.isRequired,
+};
+
 const MainHome = () => {
+  const [bots, setBots] = useState([]);
+
+  useEffect(() => {
+    const fetchBots = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/bots/");
+        setBots(response.data);
+      } catch (error) {
+        console.error("Error fetching bots data", error);
+      }
+    };
+
+    fetchBots();
+  }, []);
+
   return (
-    <div className="min-h-screen">
+    <div className="h-screen">
       <Navigation />
-      <main className="sm:ml-64 pt-20 px-4 sm:px-6 lg:px-8 bg-gray-900 border-b border-gray-700">
+      <main className="sm:ml-64 pt-20 px-4 sm:px-6 lg:px-8 bg-gray-900 border-b border-gray-700 h-full">
         {/* Animated Text */}
-        <img src={rob} className='w-96 h-60 m-auto hidden sm:block' loading="lazy"/>
+        <img src={rob} className='w-96 h-60 m-auto hidden sm:block' loading="lazy" />
         <AnimatedText text="EXPLORE OUR ENDLESS CUSTOM BOTS HERE :)" />
 
         {/* Card Grid */}
         <div className="mt-10 grid gap-6 sm:grid-cols-1 md:grid-cols-2 shadow-lg">
-          {[...Array(15).keys()].map(index => (
-            <Card key={index} index={index} />
+          {bots.map((bot, index) => (
+            <Card key={index} bot={bot} />
           ))}
         </div>
       </main>

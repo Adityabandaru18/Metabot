@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Navigation from "./Navigation";
 import ProfileAI from "../assets/creatnew.webp";
 import Demo from "../assets/Demo.png";
+import axios from 'axios';
 
 const Createnew = () => {
   const [showModal, setShowModal] = useState(false);
@@ -10,6 +11,14 @@ const Createnew = () => {
   const [fileConfirmed, setFileConfirmed] = useState(false);
   const [profileImage, setProfileImage] = useState(ProfileAI);
   const [errorMessage, setErrorMessage] = useState('');
+
+  //Bot details
+
+  const [owner,setowner] = useState("");
+   const [company,setcompany] = useState("");
+   const [bot,setbot] = useState("");
+   const [description,setdescription] = useState("");
+   const [excel,setexcel] = useState("");
 
   const openModal = () => {
     setShowModal(true);
