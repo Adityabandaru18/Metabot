@@ -28,10 +28,21 @@ def createbot(request):
         category, created = Category.objects.get_or_create(name=category_name)
         user = Useruuid.objects.get(uuid = request.POST.get('uuid'))
         Bot.objects.create(
-            admin=user,
-            category=category,
-            name=request.POST.get('name'),
-            desc=request.POST.get('description')
+            uuid=user,
+            botname=category,
+            owner_name=request.POST.get('owner_name'),
+            company_name=request.POST.get('company_name'),
+            contact_number=request.POST.get('contact_number'),
+            desc=request.POST.get('description'),
+            excelsheet=request.POST.get('excelsheet'),
+            profile=request.POST.get('profile'),
+
+            # admin=user,
+            # category=category,
+            # name=request.POST.get('name'),
+            # desc=request.POST.get('description')
+
+
         )
             
         return Response({"msg":"Data inserted sucessfully"})
