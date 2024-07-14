@@ -7,5 +7,6 @@ urlpatterns = [
     path('createbot/',views.createbot),
     path('bot/<str:pk>/', views.bot),
     path('createuser/',views.createuseruuid),
+    path('getuser/',views.getuseruuid),
     
 ]

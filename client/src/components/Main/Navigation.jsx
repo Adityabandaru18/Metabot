@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Metabot from "../assets/Metabot.png";
 import { NavLink } from 'react-router-dom';
-import robo from "../assets/robologin.png"
+import robo from "../assets/robologin.png";
 
 const Navigation = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -60,10 +60,8 @@ const Navigation = () => {
                         <ul className="space-y-2 font-medium flex flex-col h-full">
                             <li></li>
                             <li></li>
-                            <NavLink to="/main"><li>
-                                <p
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                                >
+                            <li>
+                                <NavLink to="/main" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                     <svg
                                         className="w-6 h-6 stroke-current"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -79,43 +77,18 @@ const Navigation = () => {
                                         />
                                     </svg>
                                     <span className="ms-3">Home</span>
-                                </p>
-                            </li></NavLink>
-                            <NavLink to="/create"> <li>
-                                <p
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                                >
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/create" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                     <svg className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                                         <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286C10 17.169 10.831 18 11.857 18h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
                                     </svg>
-                                    <span className="ms-3"><NavLink to="/create">Create new</NavLink></span>
-                                </p>
-                            </li></NavLink>
-                            <li>
-                                <p
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                                >
-                                    <svg
-                                        className="w-6 h-6 stroke-current"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-                                        />
-                                    </svg>
-                                    <span className="ms-3">Manage bot</span>
-                                </p>
+                                    <span className="ms-3">Create new</span>
+                                </NavLink>
                             </li>
                             <li>
-                                <p
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                                >
+                                <NavLink to="/manage" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                     <svg
                                         className="w-6 h-6 stroke-current"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -130,52 +103,65 @@ const Navigation = () => {
                                             d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                                         />
                                     </svg>
+                                    <span className="ms-3">Manage bot</span>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/orders" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                    <svg
+                                        className="w-6 h-6 stroke-current"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                                        />
+                                    </svg>
                                     <span className="ms-3">Orders</span>
-                                </p>
+                                </NavLink>
                             </li>
                             <li className="flex-grow" />
                             {/* Account */}
-                            <NavLink to="/account">
-        <li>
-          <p className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-            <svg
-              className="w-6 h-6 stroke-current"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"
-              />
-            </svg>
-            <span className="ms-3">Account</span>
-          </p>
-        </li>
-      </NavLink>
-      {/* Sign Out */}
-      <li>
-        <p className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-          <svg
-            className="w-6 h-6 stroke-current"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M10 19v-2a1 1 0 00-1-1H5V8h4a1 1 0 001-1V5M17 16l4-4m0 0l-4-4m4 4H7"
-            />
-          </svg>
-          <span className="ms-3">Sign Out</span>
-        </p>
-      </li>
+                            <NavLink to="/account" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                <svg
+                                    className="w-6 h-6 stroke-current"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"
+                                    />
+                                </svg>
+                                <span className="ms-3">Account</span>
+                            </NavLink>
+                            {/* Sign Out */}
+                            <NavLink to="/" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                <svg
+                                    className="w-6 h-6 stroke-current"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M10 19v-2a1 1 0 00-1-1H5V8h4a1 1 0 001-1V5M17 16l4-4m0 0l-4-4m4 4H7"
+                                    />
+                                </svg>
+                                <span className="ms-3">Sign Out</span>
+                            </NavLink>
                         </ul>
                     </div>
                 </aside>

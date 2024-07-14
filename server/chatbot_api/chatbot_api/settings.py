@@ -54,6 +54,8 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # adjust based on your frontend URL
     "http://127.0.0.1:3000",
+     "http://localhost:5173",
+    "http://127.0.0.1:5173",
     # Add more origins as needed for development and production
 ]
 ROOT_URLCONF = 'chatbot_api.urls'
@@ -118,6 +120,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

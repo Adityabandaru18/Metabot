@@ -26,8 +26,8 @@ class Bot(models.Model):
     company_name = models.CharField(max_length=200, blank=False, default="Unknown")
     contact_number = models.CharField(max_length=12, null=True, blank=False)
     desc = models.TextField(null=True, blank=False)
-    excelsheet = models.BooleanField(default=False)
-    profile = models.BooleanField(default=False)
+    excelsheet = models.BooleanField(default=False,null=True)
+    profile = models.BooleanField(default=False,null=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -43,7 +43,7 @@ class Message(models.Model):
     body = models.TextField()
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-    sender = models.CharField(max_length=50, null=True)
+    sender = models.TextField(null=True)
     class Meta:
         ordering = ['-updated', '-created']
 
