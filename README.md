@@ -6,6 +6,7 @@
 - Use case example
 - Challenges addressed
 - Intended Audience
+- Relevent Data
 - Techstack
 - Installation
 - Conclusion
@@ -32,14 +33,6 @@ Many SMEs struggle to provide effective customer service due to limited resource
 - **Shoppers**: Customers seeking quick and efficient assistance from businesses.
 - **Users in Need of Mental Health Support**: Organizations providing mental health services can use the platform to create chatbots that offer support and resources.
 
-## Development Process
-
-### Technologies Used
-
-- **Frontend**: React, TailwindCSS
-- **Backend**: Django, PostgreSQL
-- **AI Technologies**: Google AI Studios for model creation
-
 ## Relevant Data
 
 ### Market Research
@@ -52,9 +45,13 @@ Many SMEs struggle to provide effective customer service due to limited resource
 - Beta testing with a group of SME owners provided valuable insights into the platform's usability and effectiveness.
 - Feedback from testers helped refine the customization process and improve the overall user experience.
 
-### Expert Feedback
+## Development Process
 
-- Consultations with AI and customer service experts ensured that the platform leverages the latest technologies and best practices in chatbot development.
+### Technologies Used
+
+- **Frontend**: React, TailwindCSS
+- **Backend**: Django, PostgreSQL
+- **AI Technologies**: Google AI Studios for model creation
 
 ## Installation
 ### Frontend
