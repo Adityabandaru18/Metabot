@@ -13,6 +13,8 @@ import {
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Adduid, Adduser } from "../redux/uidslice";
+import { useDispatch } from "react-redux";
 
 function Login() {
   const nameRef = useRef("");
@@ -23,30 +25,26 @@ function Login() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [uuid, setuid] = useState("");
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
 
   const auth = getAuth(app);
   const provider1 = new GoogleAuthProvider();
+  const dispatch = useDispatch();
 
-  //Sending the User's UID to the backend to through axios
+  // Sending the User's UID to the backend through axios
 
-  const sendRequest = async () => {
+  const sendRequest = async (uuid) => {
+    const formData = new FormData();
+    formData.append('uuid', uuid);
+
     try {
-      const resp = await axios.post("http://127.0.0.1:8000/api/createuser/", {uuid});
+      const resp = await axios.post("http://127.0.0.1:8000/api/createuser/", formData);
       console.log("User created successfully");
       console.log(resp);
     } catch (error) {
       console.error('Error while sending request:', error);
     }
   };
-
-
-
-
-
-
-
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -57,13 +55,17 @@ function Login() {
         password
       );
       await updateProfile(auth.currentUser, { displayName: name });
+      const userId = userCredential.user;
+      dispatch(Adduid(userId.uid));
+      dispatch(Adduser({ name: userId.displayName, mail: userId.email }));
+      await sendRequest(userId.uid); // Send request with the user's UID
       navigate("/main");
       console.log(userCredential);
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         setError("Email already in use. Please use a different email.");
       } else {
-        setError(error.message); 
+        setError(error.message);
       }
       console.error(error);
     }
@@ -76,8 +78,10 @@ function Login() {
   const handleGoogleLogin = () => {
     signInWithPopup(auth, provider1)
       .then((userC) => {
-        setuid(userC.user.uid);
-        sendRequest();
+        const userId = userC.user;
+        dispatch(Adduser({ name: userId.displayName, mail: userId.email }));
+        dispatch(Adduid(userId.uid));
+        sendRequest(userId.uid); // Send request with the user's UID
         navigate("/main");
       })
       .catch((error) => {
@@ -238,23 +242,24 @@ function Login() {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <motion.path
-              d="M676 73.1658C555.600 127 111 200 -1 2V196H676V73.1658Z"
-              animate={{
-                d: [
-                  "M676 73.1658C555.600 150 123.5 110 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 100 100 100 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 10 100 200 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 70 120 250 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 100 120.5 200 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 150 101.5 200 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 145 108 200 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 135 139 200 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 200 140 100 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 100 120.5 200 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 150 101.5 200 -1 2V196H676V73.1658Z",
-                ],
-              }}
+          <motion.path
+        d="M676 73.1658C555.600 127 111 200 -1 2V196H676V73.1658Z"
+        initial={{ d: "M676 73.1658C555.600 127 111 200 -1 2V196H676V73.1658Z" }}
+        animate={{
+          d: [
+            "M676 73.1658C555.600 150 123.5 110 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 100 100 100 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 10 100 200 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 70 120 250 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 100 120.5 200 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 150 101.5 200 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 145 108 200 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 135 139 200 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 200 140 100 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 100 120.5 200 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 150 101.5 200 -1 2V196H676V73.1658Z",
+          ],
+        }}
               transition={{
                 repeat: Infinity,
                 repeatType: "reverse",

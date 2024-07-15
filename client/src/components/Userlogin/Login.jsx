@@ -5,7 +5,7 @@ import Atropos from "atropos/react";
 import { NavLink } from "react-router-dom";
 import robologin from "../assets/Metabot.png";
 import { GoogleLoginButton } from "react-social-login-buttons";
-
+import { useDispatch } from "react-redux";
 import { app } from "../Firebase/Firebase";
 import {
   getAuth,
@@ -14,6 +14,8 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import {Adduid, Adduser} from "../redux/uidslice";
+import axios from "axios";
 
 function Login() {
   const mailRef = useRef("");
@@ -25,6 +27,22 @@ function Login() {
 
   const auth = getAuth(app);
   const provider1 = new GoogleAuthProvider();
+  const dispatch = useDispatch();
+
+  const sendRequest = async (uuid) => {
+    const formData = new FormData();
+    formData.append('uuid', uuid);
+
+    try {
+      const resp = await axios.post("http://127.0.0.1:8000/api/createuser/", formData);
+      console.log("User created successfully");
+      console.log(resp);
+    } catch (error) {
+      console.error('Error while sending request:', error);
+    }
+  };
+
+
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -35,6 +53,10 @@ function Login() {
         email,
         password
       );
+      const userId = userCredential.user;
+      dispatch(Adduid(userId.uid));
+      dispatch(Adduser({ name: userId.displayName, mail: userId.email }));
+      await sendRequest(userId.uid); 
       navigate("/main");
       console.log(userCredential);
     } catch (error) {
@@ -54,6 +76,10 @@ function Login() {
     signInWithPopup(auth, provider1)
       .then((userC) => {
         console.log(userC);
+        const userId = userC.user;
+        dispatch(Adduid(userId.uid));
+        dispatch(Adduser({ name: userId.displayName, mail: userId.email }));
+        sendRequest(userId.uid); 
         navigate("/main");
       })
       .catch((error) => {
@@ -218,23 +244,24 @@ function Login() {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <motion.path
-              d="M676 73.1658C555.600 127 111 200 -1 2V196H676V73.1658Z"
-              animate={{
-                d: [
-                  "M676 73.1658C555.600 150 123.5 110 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 100 100 100 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 10 100 200 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 70 120 250 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 100 120.5 200 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 150 101.5 200 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 145 108 200 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 135 139 200 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 200 140 100 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 100 120.5 200 -1 2V196H676V73.1658Z",
-                  "M676 73.1658C555.600 150 101.5 200 -1 2V196H676V73.1658Z",
-                ],
-              }}
+          <motion.path
+        d="M676 73.1658C555.600 127 111 200 -1 2V196H676V73.1658Z"
+        initial={{ d: "M676 73.1658C555.600 127 111 200 -1 2V196H676V73.1658Z" }}
+        animate={{
+          d: [
+            "M676 73.1658C555.600 150 123.5 110 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 100 100 100 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 10 100 200 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 70 120 250 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 100 120.5 200 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 150 101.5 200 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 145 108 200 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 135 139 200 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 200 140 100 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 100 120.5 200 -1 2V196H676V73.1658Z",
+            "M676 73.1658C555.600 150 101.5 200 -1 2V196H676V73.1658Z",
+          ],
+        }}
               transition={{
                 repeat: Infinity,
                 repeatType: "reverse",

@@ -1,8 +1,12 @@
 import { motion } from "framer-motion";
 import Navigation from "./Navigation";
 import ProfileAI from "../assets/profileAI.jpeg";
+import { useSelector } from "react-redux";
 
 const Account = () => {
+  const { name, mail: email } = useSelector((state) => state.uid);
+
+  
   return (
     <>
       <Navigation />
@@ -56,6 +60,7 @@ const Account = () => {
                   whileFocus={{ scale: 1.05 }}
                   placeholder="Change your username here"
                   className="block w-full px-4 py-2 text-black rounded-lg"
+                  defaultValue={name}
                 />
               </div>
 
@@ -65,6 +70,7 @@ const Account = () => {
                   whileFocus={{ scale: 1.05 }}
                   placeholder="Metabot@gmail.com"
                   className="block w-full px-4 py-2 text-black rounded-lg"
+                  defaultValue={email}
                 />
               </div>
             </div>
