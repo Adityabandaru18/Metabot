@@ -50,8 +50,8 @@ Many SMEs struggle to provide effective customer service due to limited resource
 ### Technologies Used
 
 - **Frontend**: React, TailwindCSS
-- **Backend**: Django, PostgreSQL
-- **AI Technologies**: Google AI Studio for model creation
+- **Backend**: Django, REST framework, SQlite
+- **AI Technologies**: Google AI Studio for model creation, Gemini API
 
 ## Installation
 ### Frontend
@@ -65,8 +65,7 @@ Many SMEs struggle to provide effective customer service due to limited resource
 ### Backend
 #### Open a new terminal and follow these steps :
 ```bash
-   cd server
-   cd chatbot_api
+   cd server/chatbot_api
    pip install -r requirements.txt
    python manage.py runserver
 ```
