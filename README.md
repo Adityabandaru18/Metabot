@@ -79,8 +79,9 @@ Meta-Bot empowers SMEs by providing them with the tools to create customized cha
 
 ---
 
+
 Feel free to contribute to this project or reach out with any questions or feedback. Together, we can make customer service accessible and efficient for all SMEs!
 
----
+![RK67baKq9A79](https://github.com/user-attachments/assets/030a88cd-40f6-4f4e-b149-091ad0bfe158)
 
 
