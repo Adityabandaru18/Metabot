@@ -1,6 +1,14 @@
 # MetaBot: Customized Chatbots for SMEs
 
-## Project Overview
+## Table of Contents
+
+- Concept overview
+- Use case example
+- Challenges addressed
+- Intended Audience
+- Techstack
+- Installation
+- Conclusion
 
 ### Concept Overview
 
@@ -48,6 +56,23 @@ Many SMEs struggle to provide effective customer service due to limited resource
 
 - Consultations with AI and customer service experts ensured that the platform leverages the latest technologies and best practices in chatbot development.
 
+## Installation
+### Frontend
+#### Here are the steps :
+```bash
+   git clone https://github.com/your-username/your-project.git
+   cd client
+   npm install
+   npm run dev
+```
+### Backend
+#### Open a new terminal and follow these steps :
+```bash
+   cd server
+   cd chatbot_api
+   pip install django
+   python manage.py runserver
+```
 ## Conclusion
 
 Meta-Bot empowers SMEs by providing them with the tools to create customized chatbots that enhance their customer service experience. With an intuitive platform and powerful AI technologies, Meta-Bot makes it easy for businesses to offer efficient and effective customer support without the need for extensive technical resources.
@@ -58,6 +83,4 @@ Feel free to contribute to this project or reach out with any questions or feedb
 
 ---
 
-## Installation
-pending
----
+
