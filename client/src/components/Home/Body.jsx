@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import robo1 from "../assets/robo1.png";
-import Demo from './Demo';
 import costrobo from "../assets/costrobo.png";
 import customer from "../assets/customer.png";
 
@@ -103,7 +102,6 @@ const Body = () => {
           <img src={costrobo} alt='robo1' className='max-w-60 sm:max-w-80 mt-10 sm:mt-0 mr-16 sm:mr-0  sm:block' loading="lazy"/>
         </motion.div>
       </div>
-      <Demo />
 
 
     </div>
