@@ -73,6 +73,10 @@ Many SMEs struggle to provide effective customer service due to limited resource
 
 Meta-Bot empowers SMEs by providing them with the tools to create customized chatbots that enhance their customer service experience. With an intuitive platform and powerful AI technologies, Meta-Bot makes it easy for businesses to offer efficient and effective customer support without the need for extensive technical resources.
 
+## Checkout the demo video on YT!
+
+[![Video Title](https://img.youtube.com/vi/6xJtuwT88gs/0.jpg)](https://www.youtube.com/watch?v=6xJtuwT88gs)
+
 ---
 
 
