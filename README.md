@@ -57,7 +57,7 @@ Many SMEs struggle to provide effective customer service due to limited resource
 ### Frontend
 #### Here are the steps :
 ```bash
-   git clone https://github.com/your-username/your-project.git
+   git clone https://github.com/Adityabandaru18/Metabot.git
    cd client
    npm install
    npm run dev
